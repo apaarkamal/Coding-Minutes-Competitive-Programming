@@ -1,10 +1,7 @@
 #include<bits/stdc++.h>
+
 using namespace std;
-
-bool mycompare(int a,int b){
-    return a>b;
-}
-
+  
 vector<int> findClosestElements(vector<int> arr, int k, int x) {
     vector<int>ans;
     priority_queue<pair<int,int>,vector<pair<int,int>>, greater<pair<int,int>>>q;
@@ -19,6 +16,6 @@ vector<int> findClosestElements(vector<int> arr, int k, int x) {
         ans.push_back(q.top().second);
         q.pop();
     }
-    sort(ans.begin(),ans.end(),mycompare);
+    sort(ans.begin(),ans.end());
     return ans;
 }
