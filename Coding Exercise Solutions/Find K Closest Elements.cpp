@@ -1,24 +1,21 @@
 #include<bits/stdc++.h>
 using namespace std;
-
-bool mycompare(int a,int b){
-    return a>b;
-}
+typedef pair<int,int> pii;
 
 vector<int> findClosestElements(vector<int> arr, int k, int x) {
-    vector<int>ans;
-    priority_queue<pair<int,int>,vector<pair<int,int>>, greater<pair<int,int>>>q;
-    int n=arr.size();
-    for(int i=0;i<n;i++)
-    {
-        int diff=abs(arr[i]-x);
-        q.push({diff,arr[i]});
+    vector <int> K_closest_nums(k);
+    
+    priority_queue < pii, vector<pii>, greater<pii> > MinHeap;
+    
+    for(int i = 0; i < arr.size(); ++i)
+        MinHeap.push( {abs(arr[i]-x), arr[i]} );
+    
+    for(int i = 0; i < k; ++i){
+        K_closest_nums[i] = MinHeap.top().second;
+        MinHeap.pop();
     }
-    while(k--)
-    {
-        ans.push_back(q.top().second);
-        q.pop();
-    }
-    sort(ans.begin(),ans.end(),mycompare);
-    return ans;
+    
+    sort(K_closest_nums.begin(),K_closest_nums.end());
+    
+    return K_closest_nums;
 }
