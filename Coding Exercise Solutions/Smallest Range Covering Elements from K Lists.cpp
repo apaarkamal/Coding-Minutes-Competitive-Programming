@@ -7,7 +7,6 @@ vector<int> smallestRange(vector<vector<int>> nums) {
     int k=nums.size();
     for(int i=0;i<k;i++)
     {
-        sort(nums[i].begin(),nums[i].end());
         for(auto itr:nums[i])
         {
             vec.push_back({itr,i});
