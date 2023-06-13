@@ -1,30 +1,28 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define maxn 100001
 
-int solve(int n,int k,vector<int> h){
-    int cnt[maxn]={0};
-    for(int  i=0;i<n;i++){
+int solve(int n, int k, vector<int> h){
+    int maxi = *max_element(h.begin(), h.end()) + 1;
+    vector<int> cnt(maxi, 0);
+    for(int i = 0 ; i < n ; i++){
         cnt[0]++;
         cnt[h[i]]--;
     }
-    for(int i=1;i<maxn;i++){
-        cnt[i]+=cnt[i-1];
+
+    for(int i = 1; i < maxi; i++){
+        cnt[i] += cnt[i-1];
     }
-    int ans=0;
-    long long sum=0;
-    for(int i=maxn-1;i>=0;i--){
-        if(cnt[i]==n){
-            ans+=(sum>0);
-            break;
+
+    int slices = 0, curr = 0;
+    for(int i = maxi-1; i >= 0; i--){
+        if(cnt[i] == n) break;
+        if(curr + cnt[i] <= k){
+            curr += cnt[i];
+        }else{
+            slices++;
+            curr = cnt[i];
         }
-        if(sum+ cnt[i]>k)
-        {
-            ans++;
-            sum=cnt[i];
-            continue;
-        }
-        sum+=cnt[i];
     }
-    return ans;
+    if(curr != 0) slices++;
+    return slices;
 }
